@@ -1865,7 +1865,7 @@ class SequenceParameters:
     # ============================================ #
     # ============ NARDINI FUNCTIONS ============ #
 
-    def save_zscoresAndPlots(self, num_scrambles=100000, random_seed=None):
+    def save_zscoresAndPlots(self, num_scrambles=100000, random_seed=None, export_matching_scrambled_sequence=False):
         """
         A function that takes an input sequence, scrambles it a defined number of times
         to find a similar sequence derived from a statistical analysis of the amino acid
@@ -1879,6 +1879,7 @@ class SequenceParameters:
         --------------------------------------------------------------------------------
         num_scrambles | The number of times random sequences should be generated (DEFAULT = 100000).
         random_seed   | The random seed to use for reproducibility. If not defined, one will be generated (DEFAULT = None).
+        export_matching_scrambled_sequence | Whether or not to include analysis containing the matching scrambled sequence (DEFAULT = False).
 
         OUTPUT:
         --------------------------------------------------------------------------------
@@ -1895,7 +1896,7 @@ class SequenceParameters:
         else:
             seed = random_seed
             print(f'Using user-supplied random seed: {seed}\n')
-        calculate_zscore_and_plot(records, typeall, num_scrambles, seed)
+        calculate_zscore_and_plot(records, typeall, num_scrambles, seed, export_matching_scrambled_sequence)
 
 
     def calculate_zscore(self, num_scrambles=100000, random_seed=None):
