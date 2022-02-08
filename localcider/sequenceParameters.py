@@ -1865,7 +1865,7 @@ class SequenceParameters:
     # ============================================ #
     # ============ NARDINI FUNCTIONS ============ #
 
-    def save_zscoresAndPlots(self, num_scrambles=100000, random_seed=None, export_matching_scrambled_sequence=False):
+    def save_zscoresAndPlots(self, num_scrambles=100000, random_seed=None, fasta_name=None, export_matching_scrambled_sequence=False):
         """
         A function that takes an input sequence, scrambles it a defined number of times
         to find a similar sequence derived from a statistical analysis of the amino acid
@@ -1879,6 +1879,7 @@ class SequenceParameters:
         --------------------------------------------------------------------------------
         num_scrambles | The number of times random sequences should be generated (DEFAULT = 100000).
         random_seed   | The random seed to use for reproducibility. If not defined, one will be generated (DEFAULT = None).
+        fasta_name    | The name to use for sequences that lack a fasta header. This is useful in situations where multiple sequences have to be processed.
         export_matching_scrambled_sequence | Whether or not to include analysis containing the matching scrambled sequence (DEFAULT = False).
 
         OUTPUT:
@@ -1886,7 +1887,11 @@ class SequenceParameters:
         Nothing, but plots (PNGs) and a ZIP file is generated.
 
         """
-        fasta = f'>seq1\n%s' % self.SeqObj.seq
+        seq = self.SeqObj.seq
+        name = 'seq1'
+        if fasta_name is not None and type(fasta_name) is str:
+            name = fasta_name[:]
+        fasta = f'>{name}\n{seq}'
         fake_record = SeqIO.read(StringIO(fasta), 'fasta')
         records = [fake_record]
         seed = None
@@ -1929,7 +1934,11 @@ class SequenceParameters:
         Note that if the sequence is non-BioPython, a fake record will be created with the
         sequence name: "seq1".
         """
-        fasta = f'>seq1\n%s' % self.SeqObj.seq
+        seq = self.SeqObj.seq
+        name = 'seq1'
+        if fasta_name is not None and type(fasta_name) is str:
+            name = fasta_name[:]
+        fasta = f'>{name}\n{seq}'
         fake_record = SeqIO.read(StringIO(fasta), 'fasta')
         records = [fake_record]
         seed = None
