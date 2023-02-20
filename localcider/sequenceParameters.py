@@ -26,7 +26,7 @@ from Bio import SeqIO
 from io import StringIO
 from nardini.score_and_plot import calculate_zscore_and_plot, calculate_zscore
 from nardini.plotting import plot_zscore_matrix
-from nardini.core import typeall
+from nardini.constants import TYPEALL
 from datetime import datetime
 
 
@@ -1865,7 +1865,7 @@ class SequenceParameters:
     # ============================================ #
     # ============ NARDINI FUNCTIONS ============ #
 
-    def save_zscoresAndPlots(self, num_scrambles=100000, random_seed=None, fasta_name=None, export_matching_scrambled_sequence=False):
+    def save_zscoresAndPlots(self, num_scrambles=100000, typeall=TYPEALL, random_seed=None, fasta_name=None, export_matching_scrambled_sequence=False):
         """
         A function that takes an input sequence, scrambles it a defined number of times
         to find a similar sequence derived from a statistical analysis of the amino acid
@@ -1878,6 +1878,7 @@ class SequenceParameters:
         INPUT:
         --------------------------------------------------------------------------------
         num_scrambles | The number of times random sequences should be generated (DEFAULT = 100000).
+        typeall       | The amino acid types used for the analysis contained within `zvec_db`.
         random_seed   | The random seed to use for reproducibility. If not defined, one will be generated (DEFAULT = None).
         fasta_name    | The name to use for sequences that lack a fasta header. This is useful in situations where multiple sequences have to be processed.
         export_matching_scrambled_sequence | Whether or not to include analysis containing the matching scrambled sequence (DEFAULT = False).
@@ -1904,7 +1905,7 @@ class SequenceParameters:
         calculate_zscore_and_plot(records, typeall, num_scrambles, seed, export_matching_scrambled_sequence)
 
 
-    def calculate_zscore(self, num_scrambles=100000, random_seed=None, fasta_name=None):
+    def calculate_zscore(self, num_scrambles=100000, typeall=TYPEALL, random_seed=None, fasta_name=None):
         """
         A function that takes an input sequence, scrambles it a defined number of times
         to find a similar sequence derived from a statistical analysis of the amino acid
@@ -1917,6 +1918,7 @@ class SequenceParameters:
         INPUT:
         --------------------------------------------------------------------------------
         num_scrambles | The number of times random sequences should be generated (DEFAULT = 100000).
+        typeall       | The amino acid types used for the analysis contained within `zvec_db`.
         random_seed   | The random seed to use for reproducibility. If not defined, one will be
         generated (DEFAULT = None).
 
